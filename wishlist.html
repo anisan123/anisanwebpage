@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist | Anisan Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --ivory: #f1ebf0;
+            --accent: #211832;
+            --taupe: #A8907C;
+            --charcoal: #211832;
+            --grey: #211832;
+            --button-hover: #eae5ee;
+            --footer-bg: #EAE6E1;
+            --white: #FFFFFF;
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--ivory);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+            margin: 15px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn:hover {
+            background-color: var(--charcoal);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--ivory);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 45px 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(159, 123, 72, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--grey);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon {
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .icon:hover {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            gap: 40px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--charcoal);
+        }
+
+        /* Wishlist Header */
+        .wishlist-header {
+            text-align: center;
+            padding: 8rem 1rem 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .wishlist-header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .wishlist-header h1::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .wishlist-header p {
+            color: var(--grey);
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Product Grid */
+        .wishlist-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 1rem 4rem;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(159, 123, 72, 0.15);
+        }
+
+        .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: var(--taupe);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-offer {
+            color: var(--grey);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .move-to-cart {
+            color: var(--accent);
+        }
+
+        .move-to-cart:hover {
+            background-color: rgba(159, 123, 72, 0.1);
+            color: var(--button-hover);
+        }
+
+        .remove-item {
+            color: var(--taupe);
+        }
+
+        .remove-item:hover {
+            background-color: rgba(168, 144, 124, 0.1);
+            color: var(--charcoal);
+        }
+
+        /* Single Product Centered */
+        .single-product {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .single-product .product-card {
+            width: 380px;
+        }
+
+        /* Empty Wishlist */
+        .empty-wishlist {
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .empty-wishlist h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .empty-wishlist p {
+            color: var(--grey);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .continue-shopping {
+            background-color: var(--taupe);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .continue-shopping:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(159, 123, 72, 0.3);
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 70px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--charcoal);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .footer-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            color: var(--grey);
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--grey);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .contact-info {
+            color: var(--grey);
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--ivory);
+            border-radius: 50%;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(168, 144, 124, 0.3);
+            color: var(--grey);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .wishlist-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .search-container {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .wishlist-header h1 {
+                font-size: 2rem;
+            }
+            
+            .wishlist-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .product-image {
+                height: 220px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wishlist-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .single-product .product-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .product-info {
+                padding: 1rem;
+            }
+            
+            .action-btn {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="#" class="logo">Anisan</a>
+                
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search for jewelry...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="header-icons">
+                    <a href="wishlist.html" class="icon"><i class="far fa-heart"></i></a>
+                    <a href="cart.html" class="icon"><i class="fas fa-shopping-bag"></i></a>
+                    <a href="profile.html" class="icon"><i class="far fa-user"></i></a>
+                </div>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="collection.html">Collection</a></li>
+                    <li><a href="aboutus.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Wishlist Header -->
+    <div class="wishlist-header">
+        <h1>Your Wishlist ❤️</h1>
+        <p>All your saved favorites in one place.</p>
+    </div>
+
+    <!-- Wishlist Content -->
+    <div class="wishlist-container">
+        <!-- For multiple products -->
+        <div class="wishlist-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Diamond Pendant">
+                    <span class="offer-badge">Limited Edition</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Ethereal Diamond Pendant</h3>
+                    <p class="product-price">₹12,999</p>
+                    <p class="product-offer">Complimentary chain included</p>
+                    <div class="product-actions">
+                        <button class="action-btn move-to-cart" title="Move to Cart">
+                            <i class="fas fa-shopping-cart"></i> Move to Cart
+                        </button>
+                        <button class="action-btn remove-item" title="Remove">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Pearl Earrings">
+                    <span class="offer-badge">Flat 10% Off</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Pearl Drop Earrings</h3>
+                    <p class="product-price">₹8,499</p>
+                    <p class="product-offer">Free shipping on orders over ₹999</p>
+                    <div class="product-actions">
+                        <button class="action-btn move-to-cart" title="Move to Cart">
+                            <i class="fas fa-shopping-cart"></i> Move to Cart
+                        </button>
+                        <button class="action-btn remove-item" title="Remove">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1596944946755-8b7d37aba2b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Gold Bracelet">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Delicate Gold Bracelet</h3>
+                    <p class="product-price">₹9,999</p>
+                    <p class="product-offer">Customizable length</p>
+                    <div class="product-actions">
+                        <button class="action-btn move-to-cart" title="Move to Cart">
+                            <i class="fas fa-shopping-cart"></i> Move to Cart
+                        </button>
+                        <button class="action-btn remove-item" title="Remove">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Emerald Ring">
+                    <span class="offer-badge">Best Seller</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Emerald Statement Ring</h3>
+                    <p class="product-price">₹6,799</p>
+                    <p class="product-offer">Available in multiple sizes</p>
+                    <div class="product-actions">
+                        <button class="action-btn move-to-cart" title="Move to Cart">
+                            <i class="fas fa-shopping-cart"></i> Move to Cart
+                        </button>
+                        <button class="action-btn remove-item" title="Remove">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- For single product (uncomment to see) -->
+        <!--
+        <div class="single-product">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Diamond Pendant">
+                    <span class="offer-badge">Limited Edition</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Ethereal Diamond Pendant</h3>
+                    <p class="product-price">₹12,999</p>
+                    <p class="product-offer">Complimentary chain included</p>
+                    <div class="product-actions">
+                        <button class="action-btn move-to-cart" title="Move to Cart">
+                            <i class="fas fa-shopping-cart"></i> Move to Cart
+                        </button>
+                        <button class="action-btn remove-item" title="Remove">
+                            <i class="fas fa-trash-alt"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+
+        <!-- For empty wishlist (uncomment to see) -->
+        <!--
+        <div class="empty-wishlist">
+            <h2>Your wishlist is empty 💔</h2>
+            <p>Start adding jewelry you love! Explore our collections and save your favorite pieces to purchase later.</p>
+            <button class="continue-shopping">Continue Shopping</button>
+        </div>
+        -->
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">ANISAN</div>
+                    <p class="footer-tagline">Minimal. Elegant. You.</p>
+                    <p>Handcrafted minimal jewellery for everyday luxury.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="collection.html">Collection</a></li>
+                        <li><a href="aboutus.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                            <p>Email: anisanjewels@gmail.com</p>
+                            <p>Phone: +91 9547346419</p>
+                            <p>WhatsApp: <a href="#">Message Us</a></p>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <p>Stay connected for styling inspiration and behind-the-scenes.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 ANISAN. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for demonstration purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+                const navLinks = document.querySelector('.nav-links');
+                const searchContainer = document.querySelector('.search-container');
+                
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                searchContainer.style.display = searchContainer.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Add to cart functionality
+            const moveToCartButtons = document.querySelectorAll('.move-to-cart');
+            moveToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    alert(`${productName} has been moved to your cart!`);
+                });
+            });
+            
+            // Remove from wishlist functionality
+            const removeButtons = document.querySelectorAll('.remove-item');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    if (confirm(`Are you sure you want to remove ${productName} from your wishlist?`)) {
+                        productCard.style.opacity = '0';
+                        setTimeout(() => {
+                            productCard.remove();
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
